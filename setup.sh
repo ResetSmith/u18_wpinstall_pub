@@ -26,6 +26,161 @@ you can come up with as we go. "
 pause '
 Please press [Enter] to proceed'
 #
+clear
+echo "
+Please input the 'Fully Qualified Domain Name' (FQDN) for the new site. The
+FQDN is the complete domain name and suffix, ie: 'example.com'. At this time the
+script does not support domains beginning with www."
+# 'checker' and 'flag' variables are used to check inputs for spaces
+CHECKER="[[:space:]]+"
+FLAG=1
+while [ ${FLAG} -eq 1 ];
+do
+  echo  "
+  What is the FQDN of this site?"
+  read FQDN
+  if [[ "${FQDN}" =~ $CHECKER ]];
+    then
+    echo ""
+    echo "The FQDN cannot contain spaces. Please re-enter a valid site name."
+    echo ""
+  else
+    sleep 2
+    FLAG=0
+    clear
+  fi
+done
+
+echo "
+Please input a password for the MySql database root user. The root user is the
+maintenance account for the database. This is similar to an admin account."
+FLAG=1
+while [ ${FLAG} -eq 1 ];
+do
+  echo  "
+  What should the database root password be?"
+  read SQLPASS
+  if [[ "${SQLPASS}" =~ $CHECKER ]];
+    then
+    echo ""
+    echo "The Password cannot contain spaces. Please re-enter a valid Password."
+    echo ""
+  else
+    sleep 2
+    FLAG=0
+    clear
+  fi
+done
+
+echo "
+Please input a password for the Wordpress MySql user. This password is for the
+user that wordpress uses to write to the database and edit the site. It should
+be different from the root user password. The Wordpress username will be auto
+generated based on the website name."
+FLAG=1
+while [ ${FLAG} -eq 1 ];
+do
+  echo  "
+  What should the Wordpress User password be?"
+  read WPPASSWORD
+  if [[ "${WPPASSWORD}" =~ $CHECKER ]];
+    then
+    echo ""
+    echo "The Password cannot contain spaces. Please re-enter a valid Password."
+    echo ""
+  else
+    sleep 2
+    FLAG=0
+    clear
+  fi
+done
+
+# takes FQDN and removes the suffix to create the hostname
+# removes the last 4 characters from the FQDN
+# this willnot work if suffix is longer than .com/.org etc...
+HOSTNAME=$(sed 's/....$//' <<< "$FQDN")
+# generates the wordpress database and user names
+# capitalizes the hostname variable
+WPHOSTNAME="WP_${HOSTNAME^^}"
+WPUSERNAME="USER_${HOSTNAME^^}"
+#
+echo "This script will create a Wordpress site using the following information.
+Be sure to review these fields before continuing."
+
+echo "
+The FQDN (site address) will be:
+$FQDN"
+echo -ne ".\r"
+sleep .5
+echo -ne "..\r"
+sleep .5
+echo -ne "...\r"
+sleep .5
+echo ""
+
+echo "
+The Hostname will be:
+$HOSTNAME"
+echo -ne ".\r"
+sleep .5
+echo -ne "..\r"
+sleep .5
+echo -ne "...\r"
+sleep .5
+echo ""
+
+echo "
+The MySql Wordpress database will be:
+$WPHOSTNAME"
+echo -ne ".\r"
+sleep .5
+echo -ne "..\r"
+sleep .5
+echo -ne "...\r"
+sleep .5
+echo ""
+
+echo "
+The MySql root user password will be:
+$SQLPASS"
+echo -ne ".\r"
+sleep .5
+echo -ne "..\r"
+sleep .5
+echo -ne "...\r"
+sleep .5
+echo ""
+
+echo "
+The MySql Wordpress user will be:
+$WPUSERNAME"
+echo -ne ".\r"
+sleep .5
+echo -ne "..\r"
+sleep .5
+echo -ne "...\r"
+sleep .5
+echo ""
+
+echo "
+The MySql Wordpress user password will be:
+$WPPASSWORD"
+echo -ne ".\r"
+sleep .5
+echo -ne "..\r"
+sleep .5
+echo -ne "...\r"
+sleep .5
+echo ""
+# calls the pause function
+pause '
+
+Copy this information down before proceeding.
+Press [Enter] key to continue with the installation.
+Or press [Ctrl-C] to stop the installation.'
+
+clear
+#
 ###################################################################
 # General Settings
 # Server settings, updates, and dependency installs
