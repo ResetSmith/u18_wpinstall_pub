@@ -8,7 +8,7 @@ exec 2> /var/log/wp-install/04.log
 # Downloads wordpress into /tmp folder
 cd /tmp && { curl -O https://wordpress.org/latest.tar.gz ; cd -; } > /dev/null
 # Unzips wordpress download into /tmp folder
-tar xzvf /tmp/latest.tar.gz -C /tmp/.
+tar xzvf /tmp/latest.tar.gz -C /tmp/. > /dev/null
 # Creates .htaccess file for wordpress
 touch /tmp/wordpress/.htaccess
 #

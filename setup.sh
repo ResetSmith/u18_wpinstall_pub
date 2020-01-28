@@ -16,8 +16,8 @@ function pause () {
 #
 echo -e "\nThis script was created to help automate the installation and configuration
 of WordPress sites on Ubuntu 18 servers. It will prompt you for some basic information
- regarding the site and then use that to configure the server. It is best to run this
- on a freshly created Ubuntu 18 VPS.
+regarding the site and then use that to configure the server. It is best to run this
+on a freshly created Ubuntu 18 VPS.
 
 The only information you will need to complete this script is your website's Fully Qualified Domain Name (FQDN). The rest of the information like Usernames and Passwords you can come up with as we go. "
 #
@@ -50,7 +50,7 @@ do
 done
 
 clear
-echo"
+echo "
 Please input a username for the server. You will need this name to connect back
 to this server in future so choose something you will remember."
 FLAG=1
@@ -72,7 +72,7 @@ do
 done
 
 clear
-echo"
+echo "
 Please input a password for the username $USER. You will need this password to
  connect back to this server in future so choose something you will remember."
 FLAG=1
@@ -305,8 +305,8 @@ unset DEBIAN_FRONTEND
 pause '
 
 Installation has completed. After rebooting you should connect as the new user
- account and then disable remote login as root for security purposes. Logs for
- the installation can be found in /var/log/wp-install/.
+account and then disable remote login as root for security purposes. Logs for
+the installation can be found in /var/log/wp-install/.
 Please press [Enter] to continue.'
 #
 echo -e "\nInstallation has completed. Server will reboot in 25 seconds."

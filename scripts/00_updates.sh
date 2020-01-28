@@ -31,6 +31,7 @@ chmod 644 /home/$USER/.ssh/authorized_keys
 # sets temporary password for user
 echo $USER:$USER_PASS | chpasswd
 #
+sed -i '/PasswordAuthentication/ s/no/yes/' /etc/ssh/sshd_config
 # forces user to update password on next login
 #passwd -e $USER
 #
