@@ -16,12 +16,10 @@ function pause () {
 #
 echo -e "\nThis script was created to help automate the installation and configuration
 of WordPress sites on Ubuntu 18 servers. It will prompt you for some basic information
-regarding the site and then use that to configure the server. It is best to run this
-on a freshly created Ubuntu 18 VPS.
+ regarding the site and then use that to configure the server. It is best to run this
+ on a freshly created Ubuntu 18 VPS.
 
-The only information you will need to complete this script is your website's Fully
-Qualified Domain Name (FQDN). The rest of the information like Usernames and Passwords
-you can come up with as we go. "
+The only information you will need to complete this script is your website's Fully Qualified Domain Name (FQDN). The rest of the information like Usernames and Passwords you can come up with as we go. "
 #
 pause '
 Please press [Enter] to proceed'
@@ -43,6 +41,50 @@ do
     then
     echo ""
     echo "The FQDN cannot contain spaces. Please re-enter a valid site name."
+    echo ""
+  else
+    sleep 2
+    FLAG=0
+    clear
+  fi
+done
+
+clear
+echo"
+Please input a username for the server. You will need this name to connect back
+to this server in future so choose something you will remember."
+FLAG=1
+while [ ${FLAG} -eq 1 ];
+do
+  echo  "
+  What should the username be?"
+  read USER
+  if [[ "${USER}" =~ $CHECKER ]];
+    then
+    echo ""
+    echo "The username cannot contain spaces. Please re-enter a valid username."
+    echo ""
+  else
+    sleep 2
+    FLAG=0
+    clear
+  fi
+done
+
+clear
+echo"
+Please input a password for the username $USER. You will need this password to
+ connect back to this server in future so choose something you will remember."
+FLAG=1
+while [ ${FLAG} -eq 1 ];
+do
+  echo  "
+  What should the password be?"
+  read USER_PASS
+  if [[ "${USER_PASS}" =~ $CHECKER ]];
+    then
+    echo ""
+    echo "The password cannot contain spaces. Please re-enter a valid username."
     echo ""
   else
     sleep 2
@@ -221,39 +263,39 @@ clear
 # amends a line to the logfile to make it easier to read
 echo -e "\n\n\n----------Server Updates----------\n" >> /var/log/wp-install/install.log
 # prints line to screen to label the loading bar
-echo -n "\nServer Updates"
+echo -e "\nServer Updates"
 # runs script while using 'pv' to show some status info
 while source ./scripts/00_updates.sh; do echo "server updates"; sleep 1; done|pv -N 01_Server_Updates >> /var/log/wp-install/install.log
 # Pauses before moving to next section
 sleep 5
 #
 echo -e "\n\n\n----------MySql Installation----------\n" >> /var/log/wp-install/install.log
-echo -n "\nMySql Installation"
+echo -e "\nMySql Installation"
 while source ./scripts/01_mysql.sh; do echo "mysql"; sleep 1; done|pv -N 01_MySql_Install >> /var/log/wp-install/install.log
 sleep 5
 #
 echo -e "\n\n\n----------Apache Installation----------\n" >> /var/log/wp-install/install.log
-echo -n "\nApache Installation"
+echo -e "\nApache Installation"
 while source ./scripts/02_apache.sh; do echo "apache"; sleep 1; done|pv -N 02_Apache_Install >> /var/log/wp-install/install.log
 sleep 5
 #
 echo -e "\n\n\n----------PHP Installation----------\n" >> /var/log/wp-install/install.log
-echo -n "\nPHP Installation"
+echo -e "\nPHP Installation"
 while source ./scripts/03_php.sh; do echo "PHP"; sleep 1; done|pv -N 03_PHP_Install >> /var/log/wp-install/install.log
 sleep 5
 #
 echo -e "\n\n\n----------WordPress Installation----------\n" >> /var/log/wp-install/install.log
-echo -n "\nWordPress Installation"
+echo -e "\nWordPress Installation"
 while source ./scripts/04_wordpress.sh; do echo "WordPress"; sleep 1; done|pv -N /var/log/wp-install/install.log
 sleep 5
 #
 echo -e "\n\n\n----------CertBot Installation----------\n" >> /var/log/wp-install/install.log
-echo -n "\nCertBot Installation"
+echo -e "\nCertBot Installation"
 while source ./scripts/05_certbot.sh; do echo "CertBot"; sleep 1; done|pv -N 05_CertBot_Install >> /var/log/wp-install/install.log
 sleep 5
 #
 echo -e "\n\n\n----------Services----------\n" >> /var/log/wp-install/install.log
-echo -n "\nFirewall Settings and Service Restarts"
+echo -e "\nFirewall Settings and Service Restarts"
 while source ./scripts/06_restarts.sh; do echo "Restarts"; sleep 1; done|pv -N 06_Services >> /var/log/wp-install/install.log
 sleep 5
 #
@@ -262,9 +304,9 @@ unset DEBIAN_FRONTEND
 # calls the pause function to wait for reboot
 pause '
 
-Installation has completed. After rebooting you should connect as the new user account
-and then disable remote login as root for security purposes. Logs for the installation
-can be found in /var/log/wp-install/.
+Installation has completed. After rebooting you should connect as the new user
+ account and then disable remote login as root for security purposes. Logs for
+ the installation can be found in /var/log/wp-install/.
 Please press [Enter] to continue.'
 #
 echo -e "\nInstallation has completed. Server will reboot in 25 seconds."
