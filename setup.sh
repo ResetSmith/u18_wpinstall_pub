@@ -19,7 +19,9 @@ of WordPress sites on Ubuntu 18 servers. It will prompt you for some basic infor
 regarding the site and then use that to configure the server. It is best to run this
 on a freshly created Ubuntu 18 VPS.
 
-The only information you will need to complete this script is your website's Fully Qualified Domain Name (FQDN). The rest of the information like Usernames and Passwords you can come up with as we go. "
+The only information you will need to complete this script is your website's
+Fully Qualified Domain Name (FQDN). The rest of the information like Usernames
+and Passwords you can come up with as we go. "
 #
 pause '
 Please press [Enter] to proceed'
